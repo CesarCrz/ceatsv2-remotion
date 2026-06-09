@@ -1,0 +1,23 @@
+{
+  "name": "ceats-remotion-video",
+  "version": "1.0.0",
+  "description": "cEats SaaS demo video",
+  "scripts": {
+    "preview": "npx remotion studio src/index.ts",
+    "render": "npx remotion render src/index.ts CeatsDemo --output out/ceats-demo.mp4 --codec h264",
+    "render:hq": "npx remotion render src/index.ts CeatsDemo --output out/ceats-hq.mp4 --codec h264 --crf 12",
+    "render:portrait": "npx remotion render src/index.ts CeatsDemoPortrait --output out/ceats-portrait.mp4 --codec h264 --crf 12"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.0",
+    "lucide-react": "^0.400.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0"
+  }
+}
