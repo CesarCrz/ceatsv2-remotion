@@ -378,7 +378,7 @@ function Act4() {
             opacity: subSp,
             color: MUTED, fontSize: 21, fontWeight: 400, letterSpacing: '0.006em',
           }}>
-            Mira el flujo completo.
+            Ordena, paga y el restaurante recibe al instante.
           </span>
         </div>
       </div>
@@ -390,7 +390,8 @@ function Act4() {
 function ConnectionArrow() {
   const frame = useCurrentFrame()
   const { fps } = useVideoConfig()
-  const connectionActive = frame >= STEP_STARTS[10] && frame < STEP_STARTS[12]
+  // Arrow fires at step 12 (connection), exits at step 13 (was 11/12)
+  const connectionActive = frame >= STEP_STARTS[10] && frame < STEP_STARTS[13]
 
   // Idle — hairline dots
   if (!connectionActive) return (
@@ -402,8 +403,8 @@ function ConnectionArrow() {
   const arrowRel   = relFrame(frame, 10)
   const shaftScale = Math.min(1, spring({ frame: arrowRel, fps, config: SP_FAST, durationInFrames: 18 }))
   const headOp     = spring({ frame: Math.max(0, arrowRel - 14), fps, config: SP_FAST, durationInFrames: 8 })
-  const exitRel    = Math.max(0, frame - STEP_STARTS[12] + 6)
-  const arrowOp    = frame >= STEP_STARTS[12] ? Math.max(0, 1 - exitRel / 8) : 1
+  const exitRel    = Math.max(0, frame - STEP_STARTS[13] + 6)
+  const arrowOp    = frame >= STEP_STARTS[13] ? Math.max(0, 1 - exitRel / 8) : 1
 
   return (
     <div style={{ position: 'absolute', left: LEFT_PHONE_X + PHONE_W + 8, top: PHONE_Y_FINAL + PHONE_H / 2 - 8, width: CONNECTOR_W - 16, display: 'flex', alignItems: 'center', opacity: arrowOp }}>
@@ -441,7 +442,8 @@ function Act5() {
   const exitOp   = interpolate(frame, [A5E - 28, A5E], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })
 
   const step = getStep(frame)
-  const connectionActive = step === 10 || step === 11
+  // step 10 = orderTap, step 11 = address, step 12 = connection arrow
+  const connectionActive = step === 12
   const glowOp = connectionActive ? 0.22 : 0.06
   const shadow = `0 72px 180px rgba(0,0,0,0.85), 0 0 0 0.5px rgba(255,255,255,0.06), 0 0 90px rgba(6,193,103,${glowOp})`
 
@@ -600,7 +602,7 @@ export function CeatsVideo() {
   const frame = useCurrentFrame()
 
   const step = getStep(frame)
-  const connectionActive = step === 10 || step === 11
+  const connectionActive = step === 12
   const glowOp = frame >= A5S && frame <= A5E
     ? (connectionActive ? 0.22 : 0.06)
     : 0

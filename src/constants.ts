@@ -5,9 +5,10 @@ export const HEIGHT = 1080
 // Step durations in frames at 60fps
 // steps: 0:idle 1:cust 2:botTyping 3:botGreet 4:cust"1" 5:botTyping
 //        6:botLink 7:menuSlide 8:menuItems 9:cartTap 10:orderTap
-//        11:connection 12:confirm 13:paymentSheet 14:applePayTap
-//        15:paymentSuccess 16:dashboardReveal 17:deliveryNotif
-//        18:riderNotif 19:slogan 20:reset
+//        11:address  ← customer enters delivery address
+//        12:connection 13:confirm 14:paymentSheet 15:applePayTap
+//        16:paymentSuccess 17:dashboardReveal 18:deliveryNotif
+//        19:riderNotif 20:slogan 21:reset
 export const STEP_FRAMES = [
   60,   // 0  idle
   48,   // 1  cust greeting
@@ -19,17 +20,18 @@ export const STEP_FRAMES = [
   42,   // 7  menu slide
   96,   // 8  menu items
   78,   // 9  cart tap
-  42,   // 10 order tap
-  21,   // 11 connection
-  90,   // 12 confirm / payment sheet slides in (was 228)
-  60,   // 13 payment sheet revealed
-  36,   // 14 apple pay tap
-  90,   // 15 payment success
-  120,  // 16 dashboard reveal on right
-  90,   // 17 delivery / order ready notif
-  90,   // 18 rider on the way notif
-  192,  // 19 slogan
-  54,   // 20 reset
+  42,   // 10 order tap / "Continuar" pressed
+  90,   // 11 address input screen
+  21,   // 12 connection arrow (was 11)
+  90,   // 13 confirm / payment sheet slides in (was 12)
+  60,   // 14 payment sheet revealed (was 13)
+  36,   // 15 apple pay tap (was 14)
+  90,   // 16 payment success (was 15)
+  120,  // 17 dashboard reveal on right — order arrives HERE (was 16)
+  90,   // 18 order ready notif (was 17)
+  90,   // 19 rider on the way notif (was 18)
+  192,  // 20 slogan (was 19)
+  54,   // 21 reset (was 20)
 ] as const
 
 export const VIDEO_OFFSET = 990  // frames before demo animation (Acts 1-4 = 16.5s)
