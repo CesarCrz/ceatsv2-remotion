@@ -2,11 +2,37 @@ export const FPS = 60
 export const WIDTH = 1920
 export const HEIGHT = 1080
 
-// Step durations in frames at 60fps (converted from ms * 60 / 1000)
+// Step durations in frames at 60fps
 // steps: 0:idle 1:cust 2:botTyping 3:botGreet 4:cust"1" 5:botTyping
 //        6:botLink 7:menuSlide 8:menuItems 9:cartTap 10:orderTap
-//        11:connection 12:confirm 13:slogan 14:reset
-export const STEP_FRAMES = [60, 48, 60, 132, 42, 54, 144, 42, 96, 78, 42, 21, 228, 192, 54] as const
+//        11:address  ← customer enters delivery address
+//        12:connection 13:confirm 14:paymentSheet 15:applePayTap
+//        16:paymentSuccess 17:dashboardReveal 18:deliveryNotif
+//        19:riderNotif 20:slogan 21:reset
+export const STEP_FRAMES = [
+  60,   // 0  idle
+  48,   // 1  cust greeting
+  60,   // 2  bot typing
+  132,  // 3  bot greet
+  42,   // 4  cust "1"
+  54,   // 5  bot typing
+  144,  // 6  bot link
+  42,   // 7  menu slide
+  96,   // 8  menu items
+  78,   // 9  cart tap
+  42,   // 10 order tap / "Continuar" pressed
+  90,   // 11 address input screen
+  21,   // 12 connection arrow (was 11)
+  90,   // 13 confirm / payment sheet slides in (was 12)
+  60,   // 14 payment sheet revealed (was 13)
+  36,   // 15 apple pay tap (was 14)
+  90,   // 16 payment success (was 15)
+  120,  // 17 dashboard reveal on right — order arrives HERE (was 16)
+  90,   // 18 order ready notif (was 17)
+  90,   // 19 rider on the way notif (was 18)
+  192,  // 20 slogan (was 19)
+  54,   // 21 reset (was 20)
+] as const
 
 export const VIDEO_OFFSET = 990  // frames before demo animation (Acts 1-4 = 16.5s)
 export const OUTRO_DURATION = 510  // Acts 6+7+fade after demo (8.5s)
@@ -18,10 +44,8 @@ export const STEP_STARTS: number[] = (() => {
   return starts
 })()
 
-// STEP_STARTS: [990,1050,1098,1158,1290,1332,1386,1530,1572,1668,1746,1788,1809,2037,2229]
 export const ANIMATION_END = STEP_STARTS[STEP_FRAMES.length - 1] + STEP_FRAMES[STEP_FRAMES.length - 1]
-// = 1413
-export const TOTAL_FRAMES = ANIMATION_END + OUTRO_DURATION // 1563 = 26.05s
+export const TOTAL_FRAMES = ANIMATION_END + OUTRO_DURATION
 
 export function getStep(frame: number): number {
   if (frame < VIDEO_OFFSET) return -1
@@ -58,6 +82,13 @@ export const C = {
   waBotBubble: '#DCF8C6',
   waBg: '#ECE5DD',
   waRead: '#53bdeb',
+  // Premium design tokens
+  cardBg: '#0F1117',
+  border: 'rgba(255,255,255,0.07)',
+  borderGreen: 'rgba(6,193,103,0.22)',
+  mutedText: 'rgba(255,255,255,0.4)',
+  stripeBlue: '#635BFF',
+  applePay: '#000000',
 }
 
 export const WA_MESSAGES = [
